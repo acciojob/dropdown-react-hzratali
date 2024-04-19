@@ -10,7 +10,7 @@ const states = [
       {
         name: "Indore",
         description:
-          "Indore is a city in west-central India. It’s known for the 7-story Rajwada Palace and the Lal Baag Palace, which date back to Indore’s 19th-century Holkar dynasty.",
+          "Indore is a city in west-central India. It's known for the 7-story Rajwada Palace and the Lal Baag Palace, which date back to Indore's 19th-century Holkar dynasty.",
         landmarks: [
           {
             name: "Mhow",
@@ -27,7 +27,7 @@ const states = [
       {
         name: "Bhopal",
         description:
-          "DBhopal is a city in the central Indian state of Madhya Pradesh. It's one of India’s greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
+          "DBhopal is a city in the central Indian state of Madhya Pradesh. It's one of India's greenest city. There are two main lakes, the Upper Lake and the Lower Lake.",
         landmarks: [
           {
             name: "MANIT",
@@ -117,7 +117,7 @@ const states = [
       {
         name: "Guwhati",
         description:
-          "Guwahati is a sprawling city beside the Brahmaputra River in the northeast Indian state of Assam. It’s known for holy sites like the hilltop Kamakhya Temple,",
+          "Guwahati is a sprawling city beside the Brahmaputra River in the northeast Indian state of Assam. It's known for holy sites like the hilltop Kamakhya Temple,",
         landmarks: [
           {
             name: "Ganesh Guri",
@@ -186,7 +186,7 @@ const states = [
       {
         name: "Gaya",
         description:
-          "Gaya is a holy city beside the Falgu River, in the northeast Indian state of Bihar. It’s known for 18th-century Vishnupad Mandir, a riverside temple with an octagonal shrine. Close by, ancient Mangla Gauri Temple is set on a hilltop. ",
+          "Gaya is a holy city beside the Falgu River, in the northeast Indian state of Bihar. It's known for 18th-century Vishnupad Mandir, a riverside temple with an octagonal shrine. Close by, ancient Mangla Gauri Temple is set on a hilltop. ",
         landmarks: [
           {
             name: "Bakraur",
@@ -220,78 +220,77 @@ const states = [
 ];
 
 function App() {
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedLandmark, setSelectedLandmark] = useState("");
+  const [curStateIndx, setCurStateIndx] = useState(0);
+  const [curCityIndx, setCurCityIndx] = useState(0);
+  const [curLandMarkIndx, setCurLandMarkIndx] = useState(0);
 
-  const handleStateChange = (event) => {
-    setSelectedState(event.target.value);
-    setSelectedCity("");
-    setSelectedLandmark("");
-  };
+  function handleStateChange(e) {
+    const value = parseInt(e.target.value);
+    setCurStateIndx(value);
+    setCurCityIndx(0);
+    setCurLandMarkIndx(0);
+  }
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
-    setSelectedLandmark("");
-  };
+  function handleCityChange(e) {
+    const value = parseInt(e.target.value);
+    setCurCityIndx(value);
+    setCurLandMarkIndx(0);
+  }
 
-  const handleLandmarkChange = (event) => {
-    setSelectedLandmark(event.target.value);
-  };
+  function handleLandMarkChange(e) {
+    const value = parseInt(e.target.value);
+    setCurLandMarkIndx(value);
+  }
 
+  // Do not alter/remove main div
   return (
-    <div>
-      <h2>State:</h2>
-      <select value={selectedState} onChange={handleStateChange}>
-        <option value="">Select a state</option>
-        {states.map((state, index) => (
-          <option key={index} value={state.name}>
+    <div id="main">
+      <select onChange={handleStateChange} id="state">
+        {states.map((state, indx) => (
+          <option value={indx} key={indx}>
             {state.name}
           </option>
         ))}
       </select>
 
-      {selectedState && (
-        <div>
-          <h2>City:</h2>
-          <select value={selectedCity} onChange={handleCityChange}>
-            <option value="">Select a city</option>
-            {states
-              .find((state) => state.name === selectedState)
-              .cities.map((city, index) => (
-                <option key={index} value={city.name}>
-                  {city.name}
-                </option>
-              ))}
-          </select>
-        </div>
-      )}
+      <select onChange={handleCityChange} id="city">
+        {states[curStateIndx].city.map((town, indx) => (
+          <option value={indx} key={indx}>
+            {town.name}
+          </option>
+        ))}
+      </select>
 
-      {selectedCity && (
-        <div>
-          <h2>Landmark:</h2>
-          <select value={selectedLandmark} onChange={handleLandmarkChange}>
-            <option value="">Select a landmark</option>
-            {states
-              .find((state) => state.name === selectedState)
-              .cities.find((city) => city.name === selectedCity)
-              .landmarks.map((landmark, index) => (
-                <option key={index} value={landmark.name}>
-                  {landmark.name}
-                </option>
-              ))}
-          </select>
-        </div>
-      )}
+      <select onChange={handleLandMarkChange} id="landmark">
+        {states[curStateIndx].city[curCityIndx].landmarks.map((mark, indx) => (
+          <option value={indx} key={indx}>
+            {mark.name}
+          </option>
+        ))}
+      </select>
 
-      {selectedLandmark && (
-        <div>
-          <h2>Selected:</h2>
-          <p>State: {selectedState}</p>
-          <p>City: {selectedCity}</p>
-          <p>Landmark: {selectedLandmark}</p>
-        </div>
-      )}
+      <div id="state-name">{states[curStateIndx].name}</div>
+      <div id="state-description">{states[curStateIndx].description}</div>
+      <div id="state-title">{states[curStateIndx].name}</div>
+
+      <div id="city-name">{states[curStateIndx].city[curCityIndx].name}</div>
+      <div id="city-description">
+        {states[curStateIndx].city[curCityIndx].description}
+      </div>
+      <div id="city-title">{states[curStateIndx].city[curCityIndx].name}</div>
+
+      <div id="landmark-name">
+        {states[curStateIndx].city[curCityIndx].landmarks[curLandMarkIndx].name}
+      </div>
+      <div id="landmark-description">
+        {
+          states[curStateIndx].city[curCityIndx].landmarks[curLandMarkIndx]
+            .description
+        }
+      </div>
+      <div id="landmark-title">
+        {states[curStateIndx].city[curCityIndx].landmarks[curLandMarkIndx].name}
+      </div>
     </div>
   );
 }
