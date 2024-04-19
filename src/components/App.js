@@ -241,8 +241,8 @@ function App() {
 
   return (
     <div>
-      <h2 id="state">State:</h2>
-      <select value={selectedState} onChange={handleStateChange}>
+      <h2>State:</h2>
+      <select id="state" value={selectedState} onChange={handleStateChange}>
         <option value="">Select a state</option>
         {states.map((state, index) => (
           <option key={index} value={state.name}>
@@ -253,12 +253,12 @@ function App() {
 
       {selectedState && (
         <div>
-          <h2 id="city">City:</h2>
-          <select value={selectedCity} onChange={handleCityChange}>
+          <h2>City:</h2>
+          <select id="city" value={selectedCity} onChange={handleCityChange}>
             <option value="">Select a city</option>
             {states
               .find((state) => state.name === selectedState)
-              .city.map((city, index) => (
+              .cities.map((city, index) => (
                 <option key={index} value={city.name}>
                   {city.name}
                 </option>
@@ -269,12 +269,16 @@ function App() {
 
       {selectedCity && (
         <div>
-          <h2 id="landmark">Landmark:</h2>
-          <select value={selectedLandmark} onChange={handleLandmarkChange}>
+          <h2>Landmark:</h2>
+          <select
+            id="landmark"
+            value={selectedLandmark}
+            onChange={handleLandmarkChange}
+          >
             <option value="">Select a landmark</option>
             {states
               .find((state) => state.name === selectedState)
-              .city.find((city) => city.name === selectedCity)
+              .cities.find((city) => city.name === selectedCity)
               .landmarks.map((landmark, index) => (
                 <option key={index} value={landmark.name}>
                   {landmark.name}
