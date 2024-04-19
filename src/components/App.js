@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../styles/App.css";
 
 const states = [
@@ -226,11 +226,17 @@ function App() {
     selectedCity.landmarks[0]
   );
 
+  useEffect(() => {
+    setSelectedCity(selectedState.cities[0]);
+  }, [selectedState]);
+
+  useEffect(() => {
+    setSelectedLandmark(selectedCity.landmarks[0]);
+  }, [selectedCity]);
+
   const handleStateChange = (event) => {
     const newState = states.find((state) => state.name === event.target.value);
     setSelectedState(newState);
-    setSelectedCity(newState.cities[0]);
-    setSelectedLandmark(newState.cities[0].landmarks[0]);
   };
 
   const handleCityChange = (event) => {
@@ -238,7 +244,6 @@ function App() {
       (city) => city.name === event.target.value
     );
     setSelectedCity(newCity);
-    setSelectedLandmark(newCity.landmarks[0]);
   };
 
   const handleLandmarkChange = (event) => {
