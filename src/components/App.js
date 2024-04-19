@@ -279,7 +279,7 @@ function App() {
           </option>
         ))}
       </select>
-      <div id="state-title">State: {selectedState.name}</div>{" "}
+      <div id="state-title">{selectedState.name}</div>{" "}
       {/* Add "State:" prefix */}
       <div id="state-description">{selectedState.description}</div>
       <div id="city-name">City: {selectedCity.name}</div>
