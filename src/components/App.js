@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./../styles/App.css";
 
 const states = [
@@ -226,17 +226,11 @@ function App() {
     selectedCity.landmarks[0]
   );
 
-  useEffect(() => {
-    setSelectedCity(selectedState.cities[0]);
-  }, [selectedState]);
-
-  useEffect(() => {
-    setSelectedLandmark(selectedCity.landmarks[0]);
-  }, [selectedCity]);
-
   const handleStateChange = (event) => {
     const newState = states.find((state) => state.name === event.target.value);
     setSelectedState(newState);
+    setSelectedCity(newState.cities[0]);
+    setSelectedLandmark(newState.cities[0].landmarks[0]);
   };
 
   const handleCityChange = (event) => {
@@ -244,6 +238,7 @@ function App() {
       (city) => city.name === event.target.value
     );
     setSelectedCity(newCity);
+    setSelectedLandmark(newCity.landmarks[0]);
   };
 
   const handleLandmarkChange = (event) => {
@@ -284,11 +279,11 @@ function App() {
           </option>
         ))}
       </select>
-      <div id="state-name">{selectedState.name}</div>
+      <div id="state-title">State: {selectedState.name}</div>
       <div id="state-description">{selectedState.description}</div>
-      <div id="city-name">{selectedCity.name}</div>
+      <div id="city-name">City: {selectedCity.name}</div>
       <div id="city-description">{selectedCity.description}</div>
-      <div id="landmark-name">{selectedLandmark.name}</div>
+      <div id="landmark-name">Landmark: {selectedLandmark.name}</div>
       <div id="landmark-description">{selectedLandmark.description}</div>
     </div>
   );
