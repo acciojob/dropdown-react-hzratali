@@ -241,7 +241,7 @@ function App() {
 
   return (
     <div>
-      <h2>State:</h2>
+      <h2 id="state-heading">State:</h2>
       <select id="state" value={selectedState} onChange={handleStateChange}>
         <option value="">Select a state</option>
         {states.map((state, index) => (
@@ -253,7 +253,7 @@ function App() {
 
       {selectedState && (
         <div>
-          <h2>City:</h2>
+          <h2 id="city-heading">City:</h2>
           <select id="city" value={selectedCity} onChange={handleCityChange}>
             <option value="">Select a city</option>
             {states
@@ -269,7 +269,7 @@ function App() {
 
       {selectedCity && (
         <div>
-          <h2>Landmark:</h2>
+          <h2 id="landmark-heading">Landmark:</h2>
           <select
             id="landmark"
             value={selectedLandmark}
