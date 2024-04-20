@@ -250,7 +250,6 @@ function App() {
           </option>
         ))}
       </select>
-
       {selectedState && (
         <div>
           <h2>City:</h2>
@@ -258,20 +257,15 @@ function App() {
             <option value="">Select a city</option>
             {states
               .find((state) => state.name === selectedState)
-              ?.cities.map(
-                (
-                  city,
-                  index // Added '?' to handle undefined
-                ) => (
-                  <option key={index} value={city.name}>
-                    {city.name}
-                  </option>
-                )
-              )}
+              ?.city.map((city, index) => (
+                <option key={index} value={city.name}>
+                  {city.name}
+                </option>
+              ))}
           </select>
         </div>
       )}
-
+      // Inside the JSX where you're mapping through landmarks
       {selectedCity && (
         <div>
           <h2>Landmark:</h2>
@@ -283,21 +277,15 @@ function App() {
             <option value="">Select a landmark</option>
             {states
               .find((state) => state.name === selectedState)
-              ?.cities.find((city) => city.name === selectedCity)
-              ?.landmarks.map(
-                (
-                  landmark,
-                  index // Added '?' to handle undefined
-                ) => (
-                  <option key={index} value={landmark.name}>
-                    {landmark.name}
-                  </option>
-                )
-              )}
+              ?.city.find((city) => city.name === selectedCity)
+              ?.landmarks.map((landmark, index) => (
+                <option key={index} value={landmark.name}>
+                  {landmark.name}
+                </option>
+              ))}
           </select>
         </div>
       )}
-
       {selectedLandmark && (
         <div>
           <h2>Selected:</h2>
