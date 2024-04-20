@@ -241,7 +241,7 @@ function App() {
 
   return (
     <div>
-      <h2 id="state-heading">State:</h2>
+      <h2>State:</h2>
       <select id="state" value={selectedState} onChange={handleStateChange}>
         <option value="">Select a state</option>
         {states.map((state, index) => (
@@ -253,23 +253,28 @@ function App() {
 
       {selectedState && (
         <div>
-          <h2 id="city-heading">City:</h2>
+          <h2>City:</h2>
           <select id="city" value={selectedCity} onChange={handleCityChange}>
             <option value="">Select a city</option>
             {states
               .find((state) => state.name === selectedState)
-              .cities.map((city, index) => (
-                <option key={index} value={city.name}>
-                  {city.name}
-                </option>
-              ))}
+              .cities.map(
+                (
+                  city,
+                  index // Changed 'city' to 'cities'
+                ) => (
+                  <option key={index} value={city.name}>
+                    {city.name}
+                  </option>
+                )
+              )}
           </select>
         </div>
       )}
 
       {selectedCity && (
         <div>
-          <h2 id="landmark-heading">Landmark:</h2>
+          <h2>Landmark:</h2>
           <select
             id="landmark"
             value={selectedLandmark}
@@ -279,11 +284,16 @@ function App() {
             {states
               .find((state) => state.name === selectedState)
               .cities.find((city) => city.name === selectedCity)
-              .landmarks.map((landmark, index) => (
-                <option key={index} value={landmark.name}>
-                  {landmark.name}
-                </option>
-              ))}
+              ?.landmarks.map(
+                (
+                  landmark,
+                  index // Added '?' to handle undefined
+                ) => (
+                  <option key={index} value={landmark.name}>
+                    {landmark.name}
+                  </option>
+                )
+              )}
           </select>
         </div>
       )}
