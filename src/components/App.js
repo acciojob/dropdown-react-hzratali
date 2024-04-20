@@ -258,10 +258,10 @@ function App() {
             <option value="">Select a city</option>
             {states
               .find((state) => state.name === selectedState)
-              .cities.map(
+              ?.cities.map(
                 (
                   city,
-                  index // Changed 'city' to 'cities'
+                  index // Added '?' to handle undefined
                 ) => (
                   <option key={index} value={city.name}>
                     {city.name}
@@ -283,7 +283,7 @@ function App() {
             <option value="">Select a landmark</option>
             {states
               .find((state) => state.name === selectedState)
-              .cities.find((city) => city.name === selectedCity)
+              ?.cities.find((city) => city.name === selectedCity)
               ?.landmarks.map(
                 (
                   landmark,
